@@ -1,9 +1,11 @@
-// Добавлен метод LinkedList.DeleteValue(int) bool, Invert()
+// Добавлен метод LinkedList.Delete() bool, Invert()
 // Добавлен тип Linked2List
 // Добавлен метод Linked2List.Prerend(value), Linked2List.Print()
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Node2 struct {
 	Value    int
@@ -67,21 +69,12 @@ func (list *LinkedList) Invert() {
 }
 
 // Удаление элемента
-func (list *LinkedList) DeleteValue(value int) bool {
-	if list.Head.Value == value {
-		list.Head = list.Head.Next
-		return true
+func (list *LinkedList) Delete() bool {
+	if list.Head == nil {
+		return false
 	}
-	var previousNode *Node = nil
-	for node := list.Head; node != nil; node = node.Next {
-		if node.Value == value {
-			previousNode.Next = node.Next
-			return true
-		}
-		previousNode = node
-
-	}
-	return false
+	list.Head = list.Head.Next
+	return true
 
 }
 func main() {
@@ -92,11 +85,9 @@ func main() {
 	list.Prepend(3)
 	list.Print() // Вывод: 3 -> 2 -> 1 -> nil
 	list.Invert()
-	list.Print()                     // Вывод: 1 -> 2 -> 3 -> nil
-	fmt.Println(list.DeleteValue(1)) // true
-	list.Print()                     // Вывод: 3 -> 2 ->  nil
-	fmt.Println(list.DeleteValue(1)) // false
-	list.Print()                     // Вывод: 3 -> 2 ->  nil
+	list.Print() // Вывод: 1 -> 2 -> 3 -> nil
+	list.Delete()
+	list.Print() // Вывод: 2 -> 3 -> nil
 	fmt.Println("* * * Linked2List * * *")
 	list2 := &Linked2List{}
 	list2.Print()
