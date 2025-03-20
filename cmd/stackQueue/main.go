@@ -2,13 +2,11 @@
 // Добавлены методы Stake.Peek() и Queue.GetSlice()
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-// Нулевое значение для типа
-func getZero[T any]() T {
-	var result T
-	return result
-}
+	"skillsRockTasks/internal/helpers"
+)
 
 type Stack[T any] struct {
 	elements []T
@@ -29,7 +27,7 @@ func (s *Stack[T]) Push(value T) {
 // Pop удаляет верхний элемент из стека и возвращает его
 func (s *Stack[T]) Pop() (T, bool) {
 	if len(s.elements) == 0 {
-		return getZero[T](), false
+		return helpers.GetZero[T](), false
 	}
 	index := len(s.elements) - 1
 	element := s.elements[index]
@@ -42,14 +40,14 @@ func (s *Stack[T]) Peek() (T, bool) {
 	if len(s.elements) > 0 {
 		return s.elements[0], true
 	}
-	return getZero[T](), false
+	return helpers.GetZero[T](), false
 }
 
 type Queue[T any] struct {
 	elements []T
 }
 
-//Конструктор Queue
+// Конструктор Queue
 func NewQueue[T any]() *Queue[T] {
 	return &Queue[T]{
 		elements: []T{},
@@ -64,7 +62,7 @@ func (q *Queue[T]) Enqueue(value T) {
 // Dequeue удаляет элемент из начала очереди и возвращает его
 func (q *Queue[T]) Dequeue() (T, bool) {
 	if len(q.elements) == 0 {
-		return getZero[T](), false
+		return helpers.GetZero[T](), false
 	}
 	element := q.elements[0]
 	q.elements = q.elements[1:]
